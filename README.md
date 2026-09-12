@@ -107,6 +107,55 @@ jaishmon/
 
 ---
 
+---
+
+## ☁️ Deployment Guide (Cloudflare Pages)
+
+This project is optimized for zero-config static deployment on **Cloudflare Pages** via GitHub integration:
+
+1. Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/) and navigate to **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
+2. Select repository **`Jaishmon-codes/jaishmon-portfolio`**.
+3. Configure the build parameters:
+   - **Framework Preset:** `Vite`
+   - **Build Command:** `npm run build`
+   - **Build Output Directory:** `dist`
+   - **Environment Variables (Optional):**
+     - `NODE_VERSION`: `20`
+     - `VITE_PROJECTS_URL`: `https://projects.jaishmon.dev`
+4. Click **Save and Deploy**.
+
+### Custom `.page` Domain Configuration
+
+1. In your Cloudflare Pages project, go to **Custom domains** > **Set up a custom domain**.
+2. Enter your custom domain (e.g., `jaishmon.page`).
+3. Add the DNS record provided by Cloudflare at your domain registrar:
+   - **Type:** `CNAME`
+   - **Name:** `@` (or `www`)
+   - **Target:** `<project-name>.pages.dev`
+4. Cloudflare will automatically provision an edge SSL certificate with full HTTPS.
+
+---
+
+## 🔄 Automated Developer Workflow
+
+Once connected, your deployment workflow is fully automated:
+
+```bash
+git add .
+git commit -m "Update portfolio"
+git push origin main
+```
+
+```
+GitHub (main branch)
+       ↓
+Cloudflare Pages (auto build & test)
+       ↓
+Edge Production CDN (HTTPS & Custom Domain)
+```
+
+---
+
 ## 🔒 Security & Repository Hygiene
 
 - **No Secret Leakage**: All `.env` and local environment files are explicitly ignored via `.gitignore`.
